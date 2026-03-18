@@ -12,7 +12,7 @@ def test_main_run_without_exceptions(_the_snake):
         pass
     except Exception as error:
         raise AssertionError(
-            'При запуске функции `main` возникло исключение: '
+            f'An exception occurred while running the `main` function: '
             f'`{type(error).__name__}: {error}`\n\n'
-            'Убедитесь, что функция работает корректно.'
+            'Ensure the function works correctly.'
         )
