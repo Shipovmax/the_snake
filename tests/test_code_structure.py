@@ -3,9 +3,9 @@ import pytest
 
 
 EXPECTED_GAME_OBJECT_ATTRS = (
-    ('атрибут', 'position'),
-    ('атрибут', 'body_color'),
-    ('метод', 'draw'),
+    ('attribute', 'position'),
+    ('attribute', 'body_color'),
+    ('method', 'draw'),
 )
 
 
@@ -16,22 +16,22 @@ EXPECTED_GAME_OBJECT_ATTRS = (
 )
 def test_game_object_attributes(game_object, attr_type, attr_name):
     assert hasattr(game_object, attr_name), (
-        f'Убедитесь, что у объектов класса `GameObject` определен {attr_type} '
+        f'Ensure that the `GameObject` class has a defined {attr_type} '
         f'`{attr_name}`.'
     )
 
 
 EXPECTED_APPLE_ATTRS = (
-    ('атрибут', 'position'),
-    ('атрибут', 'body_color'),
-    ('метод', 'draw'),
-    ('метод', 'randomize_position'),
+    ('attribute', 'position'),
+    ('attribute', 'body_color'),
+    ('method', 'draw'),
+    ('method', 'randomize_position'),
 )
 
 
 def test_apple_inherits_from_game_object(_the_snake):
     assert issubclass(_the_snake.Apple, _the_snake.GameObject), (
-        'Класс `Apple` должен наследоваться от класса `GameObject`.'
+        'The `Apple` class must inherit from the `GameObject` class.'
     )
 
 
@@ -42,27 +42,27 @@ def test_apple_inherits_from_game_object(_the_snake):
 )
 def test_apple_attributes(apple, attr_type, attr_name):
     assert hasattr(apple, attr_name), (
-        f'Убедитесь, что у объектов класса `Apple` определен {attr_type} '
+        f'Ensure that the `Apple` class has a defined {attr_type} '
         f'`{attr_name}`.'
     )
 
 
 EXPECTED_SNAKE_ATTRS = (
-    ('атрибут', 'position'),
-    ('атрибут', 'body_color'),
-    ('атрибут', 'positions'),
-    ('атрибут', 'direction'),
-    ('метод', 'draw'),
-    ('метод', 'get_head_position'),
-    ('метод', 'move'),
-    ('метод', 'reset'),
-    ('метод', 'update_direction'),
+    ('attribute', 'position'),
+    ('attribute', 'body_color'),
+    ('attribute', 'positions'),
+    ('attribute', 'direction'),
+    ('method', 'draw'),
+    ('method', 'get_head_position'),
+    ('method', 'move'),
+    ('method', 'reset'),
+    ('method', 'update_direction'),
 )
 
 
 def test_snake_inherits_from_game_object(_the_snake):
     assert issubclass(_the_snake.Snake, _the_snake.GameObject), (
-        'Класс `Snake` должен наследоваться от класса `GameObject`.'
+        'The `Snake` class must inherit from the `GameObject` class.'
     )
 
 
@@ -73,26 +73,26 @@ def test_snake_inherits_from_game_object(_the_snake):
 )
 def test_snake_attributes(snake, attr_type, attr_name):
     assert hasattr(snake, attr_name), (
-        f'Убедитесь, что у объектов класса `Snake` определен {attr_type} '
+        f'Ensure that the `Snake` class has a defined {attr_type} '
         f'`{attr_name}`.'
     )
 
 
 EXPECTED_MODULE_ELEMENTS = (
-    ('константа', 'SCREEN_WIDTH'),
-    ('константа', 'SCREEN_HEIGHT'),
-    ('константа', 'GRID_SIZE'),
-    ('константа', 'GRID_WIDTH'),
-    ('константа', 'GRID_HEIGHT'),
-    ('константа', 'BOARD_BACKGROUND_COLOR'),
-    ('константа', 'UP'),
-    ('константа', 'DOWN'),
-    ('константа', 'LEFT'),
-    ('константа', 'RIGHT'),
-    ('переменная', 'screen'),
-    ('переменная', 'clock'),
-    ('функция', 'main'),
-    ('функция', 'handle_keys'),
+    ('constant', 'SCREEN_WIDTH'),
+    ('constant', 'SCREEN_HEIGHT'),
+    ('constant', 'GRID_SIZE'),
+    ('constant', 'GRID_WIDTH'),
+    ('constant', 'GRID_HEIGHT'),
+    ('constant', 'BOARD_BACKGROUND_COLOR'),
+    ('constant', 'UP'),
+    ('constant', 'DOWN'),
+    ('constant', 'LEFT'),
+    ('constant', 'RIGHT'),
+    ('variable', 'screen'),
+    ('variable', 'clock'),
+    ('function', 'main'),
+    ('function', 'handle_keys'),
 )
 
 
@@ -103,7 +103,7 @@ EXPECTED_MODULE_ELEMENTS = (
 )
 def test_elements_exist(element_type, element_name, _the_snake):
     assert hasattr(_the_snake, element_name), (
-        f'Убедитесь, что в модуле `the_snake` определена {element_type} '
+        f'Ensure that the `the_snake` module has a defined {element_type} '
         f'`{element_name}`.'
     )
 
@@ -117,8 +117,8 @@ def test_elements_exist(element_type, element_name, _the_snake):
 )
 def test_vars_type(expected_type, var_name, _the_snake):
     assert isinstance(getattr(_the_snake, var_name, None), expected_type), (
-        'Убедитесь, что в модуле `the_snake` есть переменная '
-        f'`{var_name}` типа `{expected_type.__name__}`.'
+        f'Ensure that the `the_snake` module has a variable '
+        f'`{var_name}` of type `{expected_type.__name__}`.'
     )
 
 
@@ -128,5 +128,5 @@ def test_vars_type(expected_type, var_name, _the_snake):
 )
 def test_vars_are_functions(func_name, _the_snake):
     assert callable(getattr(_the_snake, func_name, None)), (
-        f'Убедитесь, что переменная `{func_name}` - это функция.'
+        f'Ensure that the variable `{func_name}` is a function.'
     )

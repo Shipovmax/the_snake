@@ -15,13 +15,13 @@ sys.path.append(str(BASE_DIR))
 os.environ['SDL_VIDEODRIVER'] = 'dummy'
 
 TIMEOUT_ASSERT_MSG = (
-    'Проект работает некорректно, проверка прервана.\n'
-    'Вероятные причины ошибки:\n'
-    '1. Исполняемый код (например, вызов функции `main()`) оказался в '
-    'глобальной зоне видимости. Как исправить: вызов функции `main` поместите '
-    'внутрь конструкции `if __name__ == "__main__":`.\n'
-    '2. В цикле `while True` внутри функции `main` отсутствует вызов метода '
-    '`tick` объекта `clock`. Не изменяйте прекод в этой части.'
+    'The project is not working correctly, testing aborted.\n'
+    'Probable reasons for the error:\n'
+    '1. Executable code (e.g., calling the `main()` function) ended up in '
+    'the global scope. Fix: place the `main` function call '
+    'inside the `if __name__ == "__main__":` block.\n'
+    '2. The `tick` method of the `clock` object is missing from the `while True` loop '
+    'inside the `main` function. Do not change the pre-code in this part.'
 )
 
 
@@ -46,12 +46,12 @@ def _the_snake(snake_import_test):
         import the_snake
     except ImportError as error:
         raise AssertionError(
-            'При импорте модуль `the_snake` произошла ошибка:\n'
+            'An error occurred while importing the `the_snake` module:\n'
             f'{type(error).__name__}: {error}'
         )
     for class_name in ('GameObject', 'Snake', 'Apple'):
         assert hasattr(the_snake, class_name), (
-            f'Убедитесь, что в модуле `the_snake` определен класс `{class_name}`.'
+            f'Ensure that the class `{class_name}` is defined in the `the_snake` module.'
         )
     return the_snake
 
@@ -77,12 +77,12 @@ def _create_game_object(class_name, module):
         return getattr(module, class_name)()
     except TypeError as error:
         raise AssertionError(
-            f'При создании объекта класса `{class_name}` произошла ошибка:\n'
+            f'An error occurred while creating an object of the `{class_name}` class:\n'
             f'`{type(error).__name__}: {error}`\n'
-            f'Если в конструктор класса `{class_name}` помимо параметра '
-            '`self` передаются какие-то ещё параметры - убедитесь, что для '
-            'них установлены значения по умолчанию. Например:\n'
-            '`def __init__(self, <параметр>=<значение_по_умолчанию>):`'
+            f'If parameters other than `self` are passed to the `{class_name}` '
+            'class constructor, ensure default values are set for them. '
+            'For example:\n'
+            '`def __init__(self, <parameter>=<default_value>):`'
         )
 
 
