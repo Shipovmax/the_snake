@@ -1,79 +1,95 @@
-# Snake Game
+# The Snake
 
-A classic Snake game implemented in Python using the `pygame` library. This project has been fully localized and optimized for international code standards.
+A classic Snake game implemented in Python with pygame — clean OOP architecture, wrap-around movement, and smart apple spawning.
 
-## Description
+---
 
-This project is a clean, readable implementation of the popular Snake game. The goal is to control a snake to eat apples that appear on the screen. Each apple eaten increases the snake's length. The game ends if the snake collides with itself.
+## Features
 
-## Key Features
+- **Wrap-around** — the snake passes through screen boundaries and exits from the opposite side
+- **Smart spawning** — apples never spawn inside the snake's body
+- **OOP design** — `GameObject` base class with `Apple` and `Snake` subclasses
+- **Type hints** — full Python type annotations throughout
+- **PEP 8 compliant** — English docstrings, clean naming, flake8 clean
+- **pytest suite** — covers structure, movement, collision, and game logic
 
-- **Smooth Controls**: Intuitive arrow-key navigation.
-- **Dynamic Wrapping**: The snake can pass through screen boundaries (wrap-around mechanic).
-- **Intelligent Spawning**: Apples never spawn inside the snake's body.
-- **Code Quality**: Fully type-hinted, PEP 8 compliant, and documented in English.
-- **Robust Testing**: Includes a comprehensive test suite using `pytest`.
+---
 
-## Requirements
+## Tech Stack
 
-- Python 3.7+
-- `pygame` library
+| | |
+|---|---|
+| Language | Python 3.7+ |
+| Game engine | pygame 2.5.2 |
+| Testing | pytest 7.1.3 |
+| Linting | flake8 5.0.4, flake8-docstrings, pep8-naming |
 
-## Installation
+---
 
-1. **Clone the repository**:
-   ```bash
-   git clone https://github.com/yourusername/the_snake.git
-   cd the_snake
-   ```
+## Quick Start
 
-2. **Set up a virtual environment** (recommended):
-   ```bash
-   python -m venv venv
-   source venv/bin/activate  # On Windows: venv\Scripts\activate
-   ```
-
-3. **Install dependencies**:
-   ```bash
-   pip install -r requirements.txt
-   ```
-
-## How to Play
-
-Run the main script:
 ```bash
+git clone https://github.com/Shipovmax/the_snake
+cd the_snake
+
+python -m venv venv && source venv/bin/activate
+pip install -r requirements.txt
+
 python the_snake.py
 ```
 
-### Controls
+---
 
-- **Up Arrow**: Move Up
-- **Down Arrow**: Move Down
-- **Left Arrow**: Move Left
-- **Right Arrow**: Move Right
+## Controls
 
-## Technical Standards & Localization
+| Key | Action |
+|-----|--------|
+| ↑ | Move up |
+| ↓ | Move down |
+| ← | Move left |
+| → | Move right |
 
-This project was localized from Russian to English to ensure accessibility for the global developer community.
+Reverse direction is blocked — the snake cannot turn 180°.
 
-### Applied Techniques:
-- **English Localization**: All comments, docstrings, variable names, and user-facing strings have been translated to English.
-- **Type Hinting**: Added Python type hints (`typing` module) for better IDE support and code clarity.
-- **Refactoring**: 
-  - Improved `handle_keys` with a dictionary mapping for cleaner logic.
-  - Moved apple spawning logic into the `Apple` class.
-  - Renamed internal attributes (e.g., `last` -> `last_tail_position`) for better semantic clarity.
-- **PEP 8 Compliance**: Ensured the code follows standard Python style guidelines.
+---
 
-## Testing
+## Game Parameters
 
-The project includes unit tests to ensure stability.
+| Parameter | Value |
+|-----------|-------|
+| Window | 640 × 480 px |
+| Grid size | 20 px |
+| Speed | 20 FPS |
+| Start position | Center of screen |
+| Start direction | Right |
 
-To run the tests:
+---
+
+## Running Tests
+
 ```bash
 pytest
 ```
 
-## License
+---
 
-This project is licensed under the MIT License.
+## Project Structure
+
+```
+the_snake/
+├── the_snake.py    # Game logic: GameObject, Apple, Snake, handle_keys, main
+├── tests/
+│   ├── conftest.py
+│   ├── test_code_structure.py
+│   └── test_main.py
+├── requirements.txt
+├── pytest.ini
+└── setup.cfg
+```
+
+---
+
+## Author
+
+- GitHub: [Shipovmax](https://github.com/Shipovmax)
+- Email: shipov.max@icloud.com
