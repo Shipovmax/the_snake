@@ -4,24 +4,24 @@ from multiprocessing import Process
 from pathlib import Path
 from typing import Any
 
-from pygame.time import Clock
 import pytest
 import pytest_timeout
+from pygame.time import Clock
 
 BASE_DIR = Path(__file__).resolve(strict=True).parent.parent
 sys.path.append(str(BASE_DIR))
 
 # Hide the pygame screen
-os.environ['SDL_VIDEODRIVER'] = 'dummy'
+os.environ["SDL_VIDEODRIVER"] = "dummy"
 
 TIMEOUT_ASSERT_MSG = (
-    'The project is not working correctly, testing aborted.\n'
-    'Probable reasons for the error:\n'
-    '1. Executable code (e.g., calling the `main()` function) ended up in '
-    'the global scope. Fix: place the `main` function call '
+    "The project is not working correctly, testing aborted.\n"
+    "Probable reasons for the error:\n"
+    "1. Executable code (e.g., calling the `main()` function) ended up in "
+    "the global scope. Fix: place the `main` function call "
     'inside the `if __name__ == "__main__":` block.\n'
-    '2. The `tick` method of the `clock` object is missing from the `while True` loop '
-    'inside the `main` function. Do not change the pre-code in this part.'
+    "2. The `tick` method of the `clock` object is missing from the `while True` loop "
+    "inside the `main` function. Do not change the pre-code in this part."
 )
 
 
@@ -29,7 +29,7 @@ def import_the_snake():
     import the_snake  # noqa
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def snake_import_test():
     check_import_process = Process(target=import_the_snake)
     check_import_process.start()
@@ -40,19 +40,19 @@ def snake_import_test():
         raise AssertionError(TIMEOUT_ASSERT_MSG)
 
 
-@pytest.fixture(scope='session')
+@pytest.fixture(scope="session")
 def _the_snake(snake_import_test):
     try:
         import the_snake
     except ImportError as error:
         raise AssertionError(
-            'An error occurred while importing the `the_snake` module:\n'
-            f'{type(error).__name__}: {error}'
+            "An error occurred while importing the `the_snake` module:\n"
+            f"{type(error).__name__}: {error}"
         )
-    for class_name in ('GameObject', 'Snake', 'Apple'):
-        assert hasattr(the_snake, class_name), (
-            f'Ensure that the class `{class_name}` is defined in the `the_snake` module.'
-        )
+    for class_name in ("GameObject", "Snake", "Apple"):
+        assert hasattr(
+            the_snake, class_name
+        ), f"Ensure that the class `{class_name}` is defined in the `the_snake` module."
     return the_snake
 
 
@@ -77,28 +77,28 @@ def _create_game_object(class_name, module):
         return getattr(module, class_name)()
     except TypeError as error:
         raise AssertionError(
-            f'An error occurred while creating an object of the `{class_name}` class:\n'
-            f'`{type(error).__name__}: {error}`\n'
-            f'If parameters other than `self` are passed to the `{class_name}` '
-            'class constructor, ensure default values are set for them. '
-            'For example:\n'
-            '`def __init__(self, <parameter>=<default_value>):`'
+            f"An error occurred while creating an object of the `{class_name}` class:\n"
+            f"`{type(error).__name__}: {error}`\n"
+            f"If parameters other than `self` are passed to the `{class_name}` "
+            "class constructor, ensure default values are set for them. "
+            "For example:\n"
+            "`def __init__(self, <parameter>=<default_value>):`"
         )
 
 
 @pytest.fixture
 def game_object(_the_snake):
-    return _create_game_object('GameObject', _the_snake)
+    return _create_game_object("GameObject", _the_snake)
 
 
 @pytest.fixture
 def snake(_the_snake):
-    return _create_game_object('Snake', _the_snake)
+    return _create_game_object("Snake", _the_snake)
 
 
 @pytest.fixture
 def apple(_the_snake):
-    return _create_game_object('Apple', _the_snake)
+    return _create_game_object("Apple", _the_snake)
 
 
 class StopInfiniteLoop(Exception):
@@ -115,6 +115,7 @@ def loop_breaker_decorator(func):
         if call_counter > 1:
             raise StopInfiniteLoop
         return result
+
     return wrapper
 
 
@@ -129,7 +130,7 @@ def modified_clock(_the_snake):
             return self.clock.tick(*args, **kwargs)
 
         def __getattribute__(self, name: str) -> Any:
-            if name in ['tick', 'clock']:
+            if name in ["tick", "clock"]:
                 return super().__getattribute__(name)
             return self.clock.__getattribute__(name)
 

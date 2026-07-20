@@ -1,5 +1,5 @@
 from random import choice, randint
-from typing import Optional, Tuple, List
+from typing import List, Optional, Tuple
 
 import pygame
 
@@ -26,15 +26,18 @@ SPEED = 20
 
 # Initialize screen and clock:
 screen = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT), 0, 32)
-pygame.display.set_caption('Snake')
+pygame.display.set_caption("Snake")
 clock = pygame.time.Clock()
 
 
 class GameObject:
     """Base class for all game objects."""
 
-    def __init__(self, position: Optional[Tuple[int, int]] = None,
-                 body_color: Optional[Tuple[int, int, int]] = None):
+    def __init__(
+        self,
+        position: Optional[Tuple[int, int]] = None,
+        body_color: Optional[Tuple[int, int, int]] = None,
+    ):
         """
         Initialize a game object.
 
@@ -58,7 +61,9 @@ class Apple(GameObject):
         super().__init__(body_color=APPLE_COLOR)
         self.randomize_position()
 
-    def randomize_position(self, occupied_positions: Optional[List[Tuple[int, int]]] = None):
+    def randomize_position(
+        self, occupied_positions: Optional[List[Tuple[int, int]]] = None
+    ):
         """
         Set a random position for the apple, avoiding occupied cells.
 
@@ -68,7 +73,7 @@ class Apple(GameObject):
         while True:
             self.position = (
                 randint(0, GRID_WIDTH - 1) * GRID_SIZE,
-                randint(0, GRID_HEIGHT - 1) * GRID_SIZE
+                randint(0, GRID_HEIGHT - 1) * GRID_SIZE,
             )
             if not occupied_positions or self.position not in occupied_positions:
                 break
@@ -194,5 +199,5 @@ def main():
         pygame.display.update()
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
